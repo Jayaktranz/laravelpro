@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get('/about', [ApplicationController::class, 'about']);
+
+Auth::routes();
+
+Route::prefix('Admin')->group(function(){
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm']);
+    Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
